@@ -1,0 +1,54 @@
+{
+  "realm": "realm_sv001",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": false,
+  "duplicateEmailsAllowed": false,
+  "clients": [
+    {
+      "clientId": "flask-app",
+      "name": "flask-app",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "redirectUris": ["*"],
+      "webOrigins": ["*"]
+    }
+  ],
+  "users": [
+    {
+      "username": "sv01",
+      "enabled": true,
+      "emailVerified": true,
+      "requiredActions": [],
+      "firstName": "Student",
+      "lastName": "One",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "sv01",
+          "temporary": false
+        }
+      ]
+    },
+    {
+      "username": "sv02",
+      "enabled": true,
+      "emailVerified": true,
+      "requiredActions": [],
+      "firstName": "Student",
+      "lastName": "Two",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "sv02",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}
