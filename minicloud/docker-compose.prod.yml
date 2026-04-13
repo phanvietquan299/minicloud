@@ -44,13 +44,13 @@ services:
     restart: unless-stopped
 
   relational-database-server:
-    image: mariadb:11
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-db:${IMAGE_TAG}
     container_name: minicloud-db
     environment:
       MARIADB_ROOT_PASSWORD: root
       MARIADB_DATABASE: minicloud
     volumes:
-      - ./relational-database-server/init:/docker-entrypoint-initdb.d:ro
+      - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -58,11 +58,8 @@ services:
     restart: unless-stopped
 
   authentication-identity-server:
-    image: quay.io/keycloak/keycloak:25.0.5
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-keycloak:${IMAGE_TAG}
     container_name: minicloud-auth
-    command:
-      - start-dev
-      - --import-realm
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -72,37 +69,27 @@ services:
       KC_PROXY_HEADERS: xforwarded
     ports:
       - "8081:8080"
-    volumes:
-      - ./auth/realm-export.json:/opt/keycloak/data/import/realm-export.json:ro
     networks:
       - cloud-net
     restart: unless-stopped
 
   keycloak-init:
-    image: python:3.11-alpine
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-keycloak-init:${IMAGE_TAG}
     container_name: minicloud-auth-init
     depends_on:
       - authentication-identity-server
-    volumes:
-      - ./auth/init-keycloak.py:/init-keycloak.py:ro
-    command: ["python", "/init-keycloak.py"]
     networks:
       - cloud-net
     restart: "no"
 
   object-storage-server:
-    image: minio/minio:latest
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-minio:${IMAGE_TAG}
     container_name: minicloud-minio
-    command:
-      - server
-      - /data
-      - --console-address
-      - :9001
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
     volumes:
-      - ./minio/data:/data
+      - minio_data:/data
     ports:
       - "9000:9000"
       - "9001:9001"
@@ -111,25 +98,17 @@ services:
     restart: unless-stopped
 
   object-storage-init:
-    image: minio/mc:latest
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-minio-init:${IMAGE_TAG}
     container_name: minicloud-minio-init
     depends_on:
       - object-storage-server
-    volumes:
-      - ./minio/init:/init:ro
-    entrypoint: ["/bin/sh", "/init/init.sh"]
     networks:
       - cloud-net
     restart: "no"
 
   internal-dns-server:
-    image: internetsystemsconsortium/bind9:9.18
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-bind9:${IMAGE_TAG}
     container_name: minicloud-dns
-    volumes:
-      - ./dns/named.conf:/etc/bind/named.conf:ro
-      - ./dns/named.conf.options:/etc/bind/named.conf.options:ro
-      - ./dns/named.conf.local:/etc/bind/named.conf.local:ro
-      - ./dns/db.cloud.local:/etc/bind/db.cloud.local:ro
     ports:
       - "1053:53/udp"
     networks:
@@ -137,7 +116,7 @@ services:
     restart: unless-stopped
 
   monitoring-node-exporter-server:
-    image: prom/node-exporter:latest
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-node-exporter:${IMAGE_TAG}
     container_name: minicloud-node-exporter
     ports:
       - "9100:9100"
@@ -146,12 +125,10 @@ services:
     restart: unless-stopped
 
   monitoring-prometheus-server:
-    image: prom/prometheus:latest
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-prometheus:${IMAGE_TAG}
     container_name: minicloud-prometheus
-    command:
-      - --config.file=/etc/prometheus/prometheus.yml
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
     ports:
       - "9090:9090"
     networks:
@@ -159,16 +136,14 @@ services:
     restart: unless-stopped
 
   monitoring-grafana-dashboard-server:
-    image: grafana/grafana:latest
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-grafana:${IMAGE_TAG}
     container_name: minicloud-grafana
     environment:
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: admin
       GF_USERS_ALLOW_SIGN_UP: "false"
     volumes:
-      - ./grafana/data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning:ro
-      - ./grafana/provisioning/dashboards/system-health.json:/var/lib/grafana/dashboards/system-health.json:ro
+      - grafana_data:/var/lib/grafana
     ports:
       - "3000:3000"
     networks:
@@ -176,7 +151,7 @@ services:
     restart: unless-stopped
 
   api-gateway-proxy-server:
-    image: nginx:stable
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-proxy:${IMAGE_TAG}
     container_name: minicloud-proxy
     depends_on:
       web-frontend-server:
@@ -189,8 +164,6 @@ services:
         condition: service_started
       authentication-identity-server:
         condition: service_started
-    volumes:
-      - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "80:80"
     networks:
@@ -200,3 +173,9 @@ services:
 networks:
   cloud-net:
     name: cloud-net
+
+volumes:
+  db_data:
+  minio_data:
+  prometheus_data:
+  grafana_data:

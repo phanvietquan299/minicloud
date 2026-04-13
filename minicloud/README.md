@@ -11,10 +11,18 @@ docker compose up -d --build
 
 ## Production run
 
+Use this only on Ubuntu EC2. Build and push images first with `sh scripts/publish-images.sh`, then run the production helper on EC2.
+
 ```bash
-cp .env.example .env
-# fill DOCKERHUB_NAMESPACE and IMAGE_TAG
-docker compose -f docker-compose.prod.yml --env-file .env up -d
+sh deploy/run-prod-ec2.sh
+```
+
+## EC2 source-based run
+
+If you only push a minimal set of images to Docker Hub and want EC2 to build the full stack from source, use:
+
+```bash
+sh deploy/run-ec2-source.sh
 ```
 
 ## Test
