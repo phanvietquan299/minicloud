@@ -11,18 +11,29 @@ docker compose up -d --build
 
 ## Production run
 
-Use this only on Ubuntu EC2. Build and push images first with `sh scripts/publish-images.sh`, then run the production helper on EC2.
+Use the manual workflow described in [DEPLOYMENT_PLAYBOOK.md](DEPLOYMENT_PLAYBOOK.md) for the cleanest deployment path.
 
 ```bash
-sh deploy/run-prod-ec2.sh
+sh deploy/aws-ec2-ubuntu.sh
+git clone <YOUR_GITHUB_REPO_URL>
+cd <YOUR_REPO_FOLDER>
+docker compose up -d --build
 ```
 
 ## EC2 source-based run
 
-If you only push a minimal set of images to Docker Hub and want EC2 to build the full stack from source, use:
+If you want EC2 to build the full stack from source after cloning the repo, use:
 
 ```bash
 sh deploy/run-ec2-source.sh
+```
+
+## EC2 hybrid run
+
+If you want EC2 to pull 4 custom images from Docker Hub and use official images for the rest, use:
+
+```bash
+docker compose -f docker-compose.aws.yml --env-file .env up -d
 ```
 
 ## Test
