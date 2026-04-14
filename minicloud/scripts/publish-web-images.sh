@@ -3,6 +3,7 @@ set -eu
 
 export DOCKERHUB_NAMESPACE="phanvietquan"
 export IMAGE_TAG="v3"
+export DOCKER_DEFAULT_PLATFORM="linux/amd64"
 
 docker build --build-arg SERVER_LABEL=core -t "${DOCKERHUB_NAMESPACE}/myminicloud-web:${IMAGE_TAG}" ./web
 docker build --build-arg SERVER_LABEL=lb1 -t "${DOCKERHUB_NAMESPACE}/myminicloud-web-lb1:${IMAGE_TAG}" ./web
