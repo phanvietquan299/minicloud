@@ -3,17 +3,136 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blog 2</title>
+    <title>Phan Việt Quan // Blog 2</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+      tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { headline: ['Space Grotesk'], body: ['Manrope'], label: ['Space Grotesk'] } } } }
+    </script>
     <style>
-      body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.6; }
-      img { max-width: 100%; border-radius: 12px; }
-      a { color: #0b5fff; }
+      body { min-height: 100dvh; background: linear-gradient(180deg, #eefbf4 0%, #ffffff 55%, #f5f7fa 100%); }
+      .grain { background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 4px 4px; opacity: 0.05; }
+      .card-shadow { box-shadow: 12px 12px 0px 0px rgba(0,0,0,1); }
     </style>
   </head>
-  <body>
-    <h1>Microservices and APIs</h1>
-    <p>Bai viet nay gioi thieu cach tach backend thanh cac REST API rieng biet.</p>
-    <img alt="Microservices" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='300'><rect width='100%25' height='100%25' fill='%231f9d55'/><text x='50%25' y='50%25' fill='white' font-family='Arial' font-size='42' text-anchor='middle' dominant-baseline='middle'>Microservices</text></svg>" />
-    <p><a href="/">Back to home</a></p>
+  <body class="text-black font-body">
+    <header class="fixed top-0 w-full z-50 bg-white border-b-4 border-black">
+      <div class="flex justify-between items-center px-6 h-16 max-w-screen-2xl mx-auto">
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-black">terminal</span><h1 class="text-2xl font-black tracking-tighter font-headline uppercase">Phan Việt Quan</h1></div>
+        <nav class="hidden md:flex gap-8">
+          <a class="text-black border-b-2 border-black font-label font-bold uppercase tracking-widest text-sm" href="../index.html#hero">Home</a>
+          <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#skills-section">Skills</a>
+          <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#blog-section">Blog</a>
+        </nav>
+        <div class="md:hidden"><span class="material-symbols-outlined text-black">menu</span></div>
+      </div>
+    </header>
+
+    <main class="pt-24 pb-20 px-4 md:px-6">
+      <article class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <section class="lg:col-span-5 sticky top-24">
+          <div class="relative overflow-hidden border-[6px] border-black bg-white card-shadow">
+            <div class="absolute inset-0 grain"></div>
+            <div class="p-8 md:p-10 relative z-10">
+              <span class="inline-block bg-black text-white px-3 py-1 text-xs font-label uppercase tracking-[0.25em]">Profile / Story</span>
+              <h2 class="mt-6 text-5xl md:text-6xl font-black font-headline uppercase leading-[0.9] tracking-tighter">
+                PHAN VIỆT QUAN
+              </h2>
+              <p class="mt-4 text-xl font-semibold uppercase tracking-wide text-neutral-700">Backend Developer | Student at TDTU</p>
+              <p class="mt-6 text-lg leading-relaxed border-l-4 border-black pl-5">
+                Tôi dành phần lớn thời gian của mình để làm việc với Backend (FastAPI, Java) và tìm hiểu về hạ tầng dữ liệu lớn.
+              </p>
+            </div>
+          </div>
+          <div class="mt-8 border-4 border-black bg-black text-white p-5 card-shadow">
+            <div class="aspect-video border-2 border-white/20 overflow-hidden mb-4 bg-black">
+              <iframe 
+                class="w-full h-full  opacity-80 hover:grayscale-0 transition-all duration-500" 
+                src="https://www.youtube.com/embed/sJt_i0hOugA" 
+                title="HIEUTHUHAI - Exit Sign (prod. by Kewtiie) ft. marzuz" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <p class="text-white/85">Âm nhạc là nơi tôi tìm thấy sự cân bằng khi đối mặt với code phức tạp.</p>
+          </div>
+        </section>
+
+        <section class="lg:col-span-7 space-y-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="border-[6px] border-black bg-white card-shadow p-6 md:p-8">
+              <h3 class="text-2xl font-black font-headline uppercase tracking-tighter mb-4">Giới thiệu chung</h3>
+              <p class="text-lg leading-relaxed">
+                Chào bạn, tôi là Phan Việt Quan, hiện đang là sinh viên ngành Công nghệ tại Đại học Tôn Đức Thắng.
+                Tôi dành phần lớn thời gian của mình để làm việc với các hệ thống Backend (FastAPI, Java) và tìm hiểu về hạ tầng dữ liệu lớn (Big Data).
+              </p>
+              <p class="text-lg leading-relaxed mt-4">
+                Đối với tôi, lập trình không chỉ là công việc, mà là cách tôi tư duy và giải quyết các bài toán trong cuộc sống một cách logic và tối ưu nhất.
+              </p>
+            </div>
+
+            <div class="border-[6px] border-black bg-[#e9fff0] card-shadow p-6 md:p-8">
+              <span class="inline-block bg-black text-white px-3 py-1 text-xs font-label uppercase tracking-[0.25em] mb-4">Music Balance</span>
+              <h3 class="text-2xl font-black font-headline uppercase tracking-tighter mb-4">Cân bằng giữa Code và Giai điệu</h3>
+              <p class="text-lg leading-relaxed">
+                Nếu trong công việc tôi ưu tiên sự chính xác và cấu trúc, thì trong cuộc sống cá nhân, âm nhạc là nơi tôi tìm thấy sự cân bằng.
+                Âm nhạc giúp tôi tập trung hơn khi đối mặt với những dòng code phức tạp hoặc đơn giản là để tái tạo năng lượng sau một ngày dài tại giảng đường.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="border-[6px] border-black bg-white card-shadow overflow-hidden">
+              <div class="p-6 border-b-4 border-black bg-neutral-50">
+                <span class="text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Favorite Artist</span>
+                <h4 class="mt-2 text-3xl font-black font-headline uppercase">HIEUTHUHAI</h4>
+              </div>
+              <div class="p-6">
+                <p class="text-base leading-relaxed border-2 border-dashed border-black p-5 bg-white">
+                  Cách Hiếu làm nhạc cũng giống như cách một nghệ sĩ thực thụ tối ưu hóa sản phẩm: hiện đại, chuyên nghiệp và luôn có chất riêng không lẫn lộn.
+                </p>
+              </div>
+            </div>
+
+            <div class="border-[6px] border-black bg-black text-white card-shadow overflow-hidden">
+              <div class="p-6 border-b-4 border-white/20">
+                <span class="text-xs uppercase tracking-[0.25em] font-label font-bold text-white/60">Favorite Track</span>
+                <h4 class="mt-2 text-3xl font-black font-headline uppercase">Exit Sign</h4>
+              </div>
+              <div class="p-6">
+                <p class="text-base leading-relaxed border-2 border-dashed border-white/30 p-5 bg-white/5">
+                  Đây là bài hát tôi nghe nhiều nhất – đủ sâu lắng để suy ngẫm.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-[6px] border-black card-shadow overflow-hidden bg-white">
+            <div class="grid grid-cols-1 md:grid-cols-3">
+              <div class="p-6 bg-neutral-100 border-b-4 md:border-b-0 md:border-r-4 border-black">
+                <span class="block text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Stack</span>
+                <p class="mt-2 font-black text-2xl font-headline uppercase">FastAPI / Java</p>
+              </div>
+              <div class="p-6 bg-[#f3fff9] border-b-4 md:border-b-0 md:border-r-4 border-black">
+                <span class="block text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Interest</span>
+                <p class="mt-2 font-black text-2xl font-headline uppercase">Guitar</p>
+              </div>
+              <div class="p-6 bg-[#eef4ff]">
+                <span class="block text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Mood</span>
+                <p class="mt-2 font-black text-2xl font-headline uppercase">Music</p>
+              </div>
+            </div>
+          </div>
+
+          <section class="border-[6px] border-black bg-white card-shadow p-6 md:p-8 flex flex-wrap gap-4">
+            <a class="px-5 py-3 bg-black text-white font-label font-bold uppercase tracking-widest border-4 border-black hover:-translate-y-1 transition-transform" href="../index.html#blog-section">Back to Blog</a>
+            <a class="px-5 py-3 bg-white text-black font-label font-bold uppercase tracking-widest border-4 border-black hover:-translate-y-1 transition-transform" href="../index.html#hero">Back to Home</a>
+          </section>
+        </section>
+      </article>
+    </main>
   </body>
 </html>

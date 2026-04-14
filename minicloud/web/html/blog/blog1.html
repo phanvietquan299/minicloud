@@ -3,17 +3,127 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blog 1</title>
+    <title>PHAN VIỆT QUAN // BACKEND DEVELOPER PORTFOLIO</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+      tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { headline: ['Space Grotesk'], body: ['Manrope'], label: ['Space Grotesk'] } } } }
+    </script>
     <style>
-      body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.6; }
-      img { max-width: 100%; border-radius: 12px; }
-      a { color: #0b5fff; }
+      body { min-height: 100dvh; background: #f5f5f1; }
+      .paper { background: linear-gradient(180deg, #fff 0%, #f4f4ef 100%); }
+      .noise { background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 4px 4px; opacity: 0.05; }
     </style>
   </head>
-  <body>
-    <h1>Docker and Cloud Basics</h1>
-    <p>Bai viet nay mo ta cach dong goi ung dung bang container va ket noi qua Docker network.</p>
-    <img alt="Docker basics" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='300'><rect width='100%25' height='100%25' fill='%230b5fff'/><text x='50%25' y='50%25' fill='white' font-family='Arial' font-size='42' text-anchor='middle' dominant-baseline='middle'>Docker Basics</text></svg>" />
-    <p><a href="/">Back to home</a></p>
+  <body class="text-black font-body">
+    <header class="fixed top-0 w-full z-50 bg-white border-b-4 border-black">
+      <div class="flex justify-between items-center px-6 h-16 max-w-screen-2xl mx-auto">
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-black">terminal</span><h1 class="text-2xl font-black tracking-tighter font-headline uppercase">Phan Việt Quan</h1></div>
+        <nav class="hidden md:flex gap-8">
+          <a class="text-black border-b-2 border-black font-label font-bold uppercase tracking-widest text-sm" href="../index.html#hero">Home</a>
+          <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#skills-section">Skills</a>
+          <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#blog-section">Blog</a>
+        </nav>
+        <div class="md:hidden"><span class="material-symbols-outlined text-black">menu</span></div>
+      </div>
+    </header>
+
+    <main class="pt-24 pb-20 px-4 md:px-6">
+      <article class="max-w-6xl mx-auto paper border-[6px] border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] overflow-hidden">
+        <section class="grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+          <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-between gap-14 border-r-[6px] border-black relative">
+            <div class="noise absolute inset-0 pointer-events-none"></div>
+            <div class="relative z-10 space-y-8">
+              <span class="inline-block bg-black text-white px-3 py-1 text-xs font-label uppercase tracking-[0.25em]">Backend Developer Portfolio</span>
+              <h2 class="text-5xl md:text-7xl font-black font-headline uppercase leading-[1] tracking-tighter max-w-2xl">
+                PHAN VIỆT QUAN<br />
+                <span class="bg-black text-white italic px-3">BACKEND DEVELOPER</span><br />
+                PORTFOLIO
+              </h2>
+            </div>
+              <p class="relative z-10 text-xl md:text-2xl leading-[1.8] max-w-xl border-l-4 border-black pl-5 text-justify mt-2">
+              Tôi là Phan Việt Quan, hiện là sinh viên chuyên ngành Công nghệ thông tin tại Đại học Tôn Đức Thắng (TDTU). Định hướng cốt lõi của tôi là trở thành một kỹ sư Backend chuyên sâu, tập trung vào việc xây dựng các hệ thống có hiệu suất cao, khả năng mở rộng tốt và duy trì tính ổn định thông qua các quy trình phát triển phần mềm hiện đại.
+            </p>
+          </div>
+          <div class="lg:col-span-5 p-8 md:p-12 bg-black text-white flex flex-col justify-between gap-8">
+            <div>
+              <div class="border-2 border-white/20 p-4 bg-white/5 backdrop-blur-sm">
+                <img class="w-full h-[260px] object-cover " alt="Phan Viet Quan portrait" src="../asset/me.png" />
+              </div>
+              <div class="mt-6 grid grid-cols-2 gap-4 text-sm">
+                <div class="border border-white/20 p-4"><span class="block text-white/50 uppercase tracking-[0.2em] text-[10px] mb-2">Focus</span><strong class="text-2xl">Backend</strong></div>
+                <div class="border border-white/20 p-4"><span class="block text-white/50 uppercase tracking-[0.2em] text-[10px] mb-2">Goal</span><strong class="text-2xl">Scalable</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-0 border-t-[6px] border-black">
+          <div class="lg:col-span-8 p-8 md:p-12 bg-white space-y-14">
+            <div>
+              <h3 class="text-3xl md:text-4xl font-black font-headline uppercase tracking-tighter mb-5">1. GIỚI THIỆU CHUNG</h3>
+              <p class="text-lg leading-[1.8] text-justify">
+                Tôi là Phan Việt Quan, hiện là sinh viên chuyên ngành Công nghệ thông tin tại Đại học Tôn Đức Thắng (TDTU). Định hướng cốt lõi của tôi là trở thành một kỹ sư Backend chuyên sâu, tập trung vào việc xây dựng các hệ thống có hiệu suất cao, khả năng mở rộng tốt và duy trì tính ổn định thông qua các quy trình phát triển phần mềm hiện đại.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-3xl md:text-4xl font-black font-headline uppercase tracking-tighter mb-5">2. KỸ NĂNG CHUYÊN MÔN</h3>
+              <p class="text-lg leading-[1.8] mb-5 text-justify"><strong>Front-End Development:</strong> Tôi có nền tảng cơ bản về xây dựng giao diện người dùng, đảm bảo tính thẩm mỹ và khả năng tương tác tốt. Thành thạo HTML, CSS, JavaScript và ReactJS để xây dựng các trang web hiện đại. Có khả năng thiết kế giao diện (UI) đơn giản trên Figma và triển khai website nhanh chóng với WordPress.</p>
+              <p class="text-lg leading-[1.8] mb-5 text-justify"><strong>Back-End Development:</strong> Đây là thế mạnh trọng tâm mà tôi đang tập trung phát triển và tối ưu hóa. Thành thạo PHP với Laravel Framework (Routing, Templating). Hệ sinh thái Python của tôi tập trung vào phát triển API hiệu năng cao và các ứng dụng web quy mô lớn với FastAPI và Django.</p>
+              <ul class="space-y-4 text-lg leading-[1.8] pl-5 list-disc">
+                <li><strong>Database Management:</strong> Có kinh nghiệm với MySQL và SQL Server, viết các truy vấn SQL cơ bản và tiếp tục nghiên cứu sâu về thiết kế, tối ưu hóa cơ sở dữ liệu phức tạp.</li>
+                <li><strong>Development Environment & Infrastructure:</strong> Sử dụng GitHub để quản lý mã nguồn, XAMPP và Docker để vận hành, kiểm thử ứng dụng local đồng nhất.</li>
+                <li><strong>Cloud Computing:</strong> Triển khai và quản trị dịch vụ trên nền tảng AWS.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-3xl md:text-4xl font-black font-headline uppercase tracking-tighter mb-5">3. DỰ ÁN & MỤC TIÊU</h3>
+              <p class="text-lg leading-[1.8] text-justify">
+                Với tinh thần kỷ luật và sự tỉ mỉ, tôi luôn cam kết tuân thủ nghiêm ngặt các tiêu chuẩn kỹ thuật trong mọi dự án mình tham gia. Mục tiêu của tôi là ứng dụng tối đa sức mạnh của Docker, AWS và các Backend Framework hiện đại để tạo ra những giải pháp phần mềm giá trị.
+              </p>
+            </div>
+            <div>
+              <h3 class="text-3xl md:text-4xl font-black font-headline uppercase tracking-tighter mb-5">4. HỒ SƠ & LIÊN HỆ</h3>
+              <p class="text-lg leading-[1.8] text-justify">
+                Hồ sơ chi tiết: GitHub.com/PhanVietQuan<br />Liên hệ: phanvietquan299@gmail.com
+              </p>
+            </div>
+            <div>
+              <h3 class="text-3xl md:text-4xl font-black font-headline uppercase tracking-tighter mb-5">5. KINH NGHIỆM THỰC CHIẾN</h3>
+              <p class="text-lg leading-[1.8] text-justify mb-5">
+                Trong hành trình phát triển nghề nghiệp, tôi đã có 3 tháng thực tập quý giá tại Công ty phần mềm Splus Software với vai trò Backend Developer Intern. Tại đây, tôi không chỉ áp dụng kiến thức lý thuyết vào môi trường doanh nghiệp thực tế mà còn trực tiếp tham gia vào các giai đoạn quan trọng của dự án.
+              </p>
+              <ul class="space-y-4 text-lg leading-[1.8] pl-5 list-disc">
+                <li><strong>Xây dựng hệ thống:</strong> Trực tiếp tham gia thiết kế và phát triển các tính năng phía máy chủ, đảm bảo logic hệ thống vận hành chính xác.</li>
+                <li><strong>Đảm bảo chất lượng:</strong> Thực hiện kiểm soát và đánh giá đầu ra của các module để đáp ứng đúng yêu cầu nghiệp vụ và kỹ thuật của dự án.</li>
+                <li><strong>Tối ưu hóa:</strong> Nhận diện và xử lý các lỗi phát sinh trong quá trình vận hành, đồng thời đóng góp ý kiến để cải thiện hiệu suất hệ thống trong tương lai.</li>
+                <li><strong>Quy trình chuyên nghiệp:</strong> Làm việc trong môi trường yêu cầu tính kỷ luật cao, tuân thủ nghiêm ngặt các quy tắc về annotation và quản lý dữ liệu lớn.</li>
+              </ul>
+            </div>
+          </div>
+
+          <aside class="lg:col-span-4 bg-surface-container-low border-l-[6px] border-black p-8 md:p-10 space-y-6">
+            <div class="border-4 border-black p-4 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+              <h4 class="font-headline text-xl font-black uppercase mb-3">Front-End</h4>
+              <p class="text-sm leading-relaxed border-2 border-dashed border-black p-4 bg-neutral-50">
+                HTML, CSS, JavaScript, ReactJS, Figma, WordPress.
+              </p>
+            </div>
+            <div class="border-4 border-black p-4 bg-black text-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.25)]">
+              <h4 class="font-headline text-xl font-black uppercase mb-3">Back-End</h4>
+              <p class="text-sm leading-relaxed border-2 border-dashed border-white/40 p-4 bg-white/5">
+                PHP, Laravel, FastAPI, Django.
+              </p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="px-8 md:px-12 py-10 border-t-[6px] border-black flex flex-wrap gap-4 bg-white">
+          <a class="px-5 py-3 bg-black text-white font-label font-bold uppercase tracking-widest border-4 border-black hover:-translate-y-1 transition-transform" href="../index.html#blog-section">Back to Blog</a>
+          <a class="px-5 py-3 bg-white text-black font-label font-bold uppercase tracking-widest border-4 border-black hover:-translate-y-1 transition-transform" href="../index.html#hero">Back to Home</a>
+        </section>
+      </article>
+    </main>
   </body>
 </html>

@@ -8,6 +8,8 @@ services:
     container_name: minicloud-web
     ports:
       - "8080:80"
+    volumes:
+      - ./web/html:/usr/share/nginx/html:ro
     networks:
       - cloud-net
     restart: unless-stopped
@@ -27,6 +29,8 @@ services:
     container_name: minicloud-web-1
     ports:
       - "8082:80"
+    volumes:
+      - ./web/html:/usr/share/nginx/html:ro
     networks:
       - cloud-net
     restart: unless-stopped
@@ -46,6 +50,8 @@ services:
     container_name: minicloud-web-2
     ports:
       - "8083:80"
+    volumes:
+      - ./web/html:/usr/share/nginx/html:ro
     networks:
       - cloud-net
     restart: unless-stopped

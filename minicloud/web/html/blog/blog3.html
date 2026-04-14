@@ -3,17 +3,132 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blog 3</title>
+    <title>Phan Việt Quan // Blog 3</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script>
+      tailwind.config = { darkMode: 'class', theme: { extend: { fontFamily: { headline: ['Space Grotesk'], body: ['Manrope'], label: ['Space Grotesk'] } } } }
+    </script>
     <style>
-      body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.6; }
-      img { max-width: 100%; border-radius: 12px; }
-      a { color: #0b5fff; }
+      body { min-height: 100dvh; background: linear-gradient(180deg, #fef3c7 0%, #fffaf0 35%, #eef7ff 100%); }
+      .grain { background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 4px 4px; opacity: 0.05; }
+      .card-shadow { box-shadow: 12px 12px 0px 0px rgba(0,0,0,1); }
     </style>
   </head>
-  <body>
-    <h1>Monitoring and Object Storage</h1>
-    <p>Bai viet nay noi ve Prometheus, Grafana va luu tru doi tuong trong MinIO.</p>
-    <img alt="Monitoring and storage" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='300'><rect width='100%25' height='100%25' fill='%23d97706'/><text x='50%25' y='50%25' fill='white' font-family='Arial' font-size='42' text-anchor='middle' dominant-baseline='middle'>Monitoring + Storage</text></svg>" />
-    <p><a href="/">Back to home</a></p>
+  <body class="text-black font-body">
+    <header class="fixed top-0 w-full z-50 bg-white border-b-4 border-black">
+      <div class="flex justify-between items-center px-6 h-16 max-w-screen-2xl mx-auto">
+        <div class="flex items-center gap-2"><span class="material-symbols-outlined text-black">terminal</span><h1 class="text-2xl font-black tracking-tighter font-headline uppercase">Phan Việt Quan</h1></div>
+        <nav class="hidden md:flex gap-8">
+          <a class="text-black border-b-2 border-black font-label font-bold uppercase tracking-widest text-sm" href="../index.html#hero">Home</a>
+          <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#skills-section">Skills</a>
+          <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#blog-section">Blog</a>
+        </nav>
+        <div class="md:hidden"><span class="material-symbols-outlined text-black">menu</span></div>
+      </div>
+    </header>
+
+    <main class="pt-24 pb-20 px-4 md:px-6">
+      <article class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <section class="lg:col-span-7 border-[6px] border-black bg-white card-shadow overflow-hidden">
+          <div class="relative h-[400px] bg-neutral-200 overflow-hidden border-b-4 border-black flex items-center justify-center">
+            <img 
+                class="w-full h-full object-cover transition-all duration-400 hover:scale-105" 
+                alt="Travel cover" 
+                src="../asset/VN.webp" 
+            />
+            <div class="absolute inset-0 grain pointer-events-none"></div>
+            <div class="absolute bottom-4 left-4 bg-black text-white px-3 py-1 text-xs font-label font-bold uppercase tracking-widest">
+                Journey Map
+            </div>
+        </div>
+
+          <div class="p-8 md:p-10 space-y-8 bg-neutral-400 relative">
+              <div class="absolute inset-0 grain pointer-events-none"></div>
+              
+              <div class="relative z-10">
+                  <span class="inline-block bg-black text-white px-3 py-1 text-xs font-label uppercase tracking-[0.25em]">Travel / Goal</span>
+                  <h2 class="mt-6 text-5xl md:text-7xl font-black font-headline uppercase leading-[0.9] tracking-tighter text-black">
+                      HÀNH TRÌNH <span class="italic bg-black text-white px-2">XUYÊN VIỆT</span>
+                  </h2>
+                  <p class="mt-5 text-xl leading-relaxed max-w-2xl border-l-4 border-black pl-5 text-black">
+                      Tự do và trải nghiệm là lý do tôi luôn thích dịch chuyển. Mỗi chuyến đi là một lần tôi được F5 bản thân và nhìn quê hương bằng một góc nhìn mới.
+                  </p>
+              </div>
+          </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="border-4 border-black bg-[#fff5d6] p-5">
+                <span class="block text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Goal</span>
+                <strong class="block mt-2 text-2xl font-black font-headline uppercase">Before 30</strong>
+              </div>
+              <div class="border-4 border-black bg-[#e0f2fe] p-5">
+                <span class="block text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Target</span>
+                <strong class="block mt-2 text-2xl font-black font-headline uppercase">All Vietnam</strong>
+              </div>
+              <div class="border-4 border-black bg-[#dcfce7] p-5">
+                <span class="block text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Pace</span>
+                <strong class="block mt-2 text-2xl font-black font-headline uppercase">2-3 trips/year</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="lg:col-span-5 space-y-8">
+          <div class="border-[6px] border-black bg-white card-shadow p-8">
+            <h3 class="text-3xl font-black font-headline uppercase tracking-tighter mb-4">Tự do và Trải nghiệm</h3>
+            <p class="text-lg leading-relaxed">
+              Bên cạnh những giờ làm việc căng thẳng với dòng code và dữ liệu, tôi dành một tình yêu lớn cho việc dịch chuyển.
+              Với tôi, đi du lịch không chỉ là nghỉ dưỡng, mà là cách để mở rộng thế giới quan, học hỏi về văn hóa và con người ở mỗi vùng đất mới.
+              Mỗi chuyến đi là một lần tôi được "F5" bản thân, tìm thấy những góc nhìn mới mà sách vở hay màn hình máy tính không thể mang lại.
+            </p>
+          </div>
+
+          <div class="border-[6px] border-black bg-black text-white card-shadow p-8">
+            <span class="inline-block bg-white text-black px-3 py-1 text-xs font-label uppercase tracking-[0.25em]">Milestone</span>
+            <h3 class="mt-5 text-3xl font-black font-headline uppercase tracking-tighter mb-4">Mục tiêu lớn</h3>
+            <p class="text-lg leading-relaxed">
+              Đất nước Việt Nam mình vô cùng xinh đẹp và ẩn chứa nhiều điều kỳ diệu từ vùng núi phía Bắc hùng vĩ đến dải miền Trung đầy nắng gió và miền Tây sông nước hữu tình.
+            </p>
+            <p class="text-lg leading-relaxed mt-4">
+              Tôi đã tự đặt ra cho mình một cột mốc quan trọng: Đi hết dải đất hình chữ S này trước khi chạm ngưỡng 30 tuổi.
+            </p>
+          </div>
+
+          <div class="border-[6px] border-black bg-white card-shadow p-8">
+            <h3 class="text-3xl font-black font-headline uppercase tracking-tighter mb-4">Những điểm đến tiếp theo</h3>
+            <p class="text-lg leading-relaxed mb-4">
+              Tại sao là trước 30? Vì đây là khoảng thời gian tôi thấy mình sung sức nhất, khao khát khám phá nhất và cũng là lúc tôi muốn gom nhặt thật nhiều kỷ niệm về quê hương mình.
+            </p>
+            <p class="text-lg leading-relaxed">
+              Danh sách những nơi cần đến vẫn còn dài, nhưng mỗi năm, tôi đều cố gắng thực hiện ít nhất 2-3 chuyến đi lớn để dần hoàn thiện bản đồ của riêng mình.
+            </p>
+          </div>
+        </section>
+
+        <section class="lg:col-span-12 border-[6px] border-black bg-white card-shadow overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-12">
+            <div class="md:col-span-4 p-6 bg-[#eff6ff] border-b-4 md:border-b-0 md:border-r-4 border-black">
+              <h4 class="text-2xl font-black font-headline uppercase tracking-tighter mb-3">Tình yêu quê hương</h4>
+              <p class="text-base leading-relaxed">Càng đi, tôi càng thêm yêu và tự hào về vẻ đẹp của Việt Nam.</p>
+            </div>
+            <div class="md:col-span-5 p-6 bg-[#fff7ed] border-b-4 md:border-b-0 md:border-r-4 border-black">
+              <h4 class="text-2xl font-black font-headline uppercase tracking-tighter mb-3">Dấu ấn từng vùng</h4>
+              <p class="text-base leading-relaxed">Mỗi tỉnh thành đi qua đều để lại trong tôi một dấu ấn riêng biệt về sự tử tế của con người và sự kỳ vĩ của thiên nhiên.</p>
+            </div>
+            <div class="md:col-span-3 p-6 bg-[#dcfce7]">
+              <span class="block text-xs uppercase tracking-[0.25em] font-label font-bold text-neutral-500">Quote</span>
+              <p class="mt-3 text-lg leading-relaxed font-semibold">"Đi là để trở về, và trở về để làm việc tốt hơn."</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="lg:col-span-12 border-[6px] border-black bg-white card-shadow p-6 md:p-8 flex flex-wrap gap-4">
+          <a class="px-5 py-3 bg-black text-white font-label font-bold uppercase tracking-widest border-4 border-black hover:-translate-y-1 transition-transform" href="../index.html#blog-section">Back to Blog</a>
+          <a class="px-5 py-3 bg-white text-black font-label font-bold uppercase tracking-widest border-4 border-black hover:-translate-y-1 transition-transform" href="../index.html#hero">Back to Home</a>
+        </section>
+      </article>
+    </main>
   </body>
 </html>

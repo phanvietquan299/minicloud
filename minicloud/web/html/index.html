@@ -1,26 +1,211 @@
-<!doctype html>
-<html lang="vi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MyMiniCloud</title>
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Phan Việt Quan</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=Manrope:wght@400;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f9f9f9",
+                        "primary": "#000000",
+                        "on-surface-variant": "#474747",
+                        "surface": "#f9f9f9",
+                        "surface-container-low": "#f3f3f4",
+                        "surface-container-lowest": "#ffffff",
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Manrope"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
     <style>
-      body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; line-height: 1.6; }
-      .card { padding: 16px; border: 1px solid #ddd; border-radius: 12px; margin: 12px 0; }
-      a { color: #0b5fff; }
+        .halftone-bg {
+            background-image: radial-gradient(circle, #000 1px, transparent 1px);
+            background-size: 4px 4px;
+            opacity: 0.1;
+        }
+        .ink-bleed {
+            filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+        }
+        .manga-panel-clip {
+            clip-path: polygon(0% 0%, 100% 2%, 98% 100%, 0% 98%);
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
     </style>
-  </head>
-  <body>
-    <h1>MyMiniCloud - Home (${SERVER_LABEL})</h1>
-    <p>Static web server running in Nginx.</p>
-    <div class="card">
-      <h2>Blog posts</h2>
-      <ul>
-        <li><a href="/blog/blog1.html">Blog 1 - Docker and Cloud Basics</a></li>
-        <li><a href="/blog/blog2.html">Blog 2 - Microservices and APIs</a></li>
-        <li><a href="/blog/blog3.html">Blog 3 - Monitoring and Storage</a></li>
-      </ul>
+</head>
+<body class="overflow-x-hidden bg-background text-on-background font-body selection:bg-primary selection:text-white">
+
+<header class="fixed top-0 w-full z-50 bg-white dark:bg-black border-b-4 border-black">
+    <div class="flex justify-between items-center px-6 h-16 max-w-screen-2xl mx-auto">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">terminal</span>
+            <h1 class="text-2xl font-black text-black tracking-tighter font-headline uppercase">Phan Việt Quan</h1>
+        </div>
+        <nav class="hidden md:flex gap-8">
+            <a class="text-black border-b-2 border-black font-label font-bold uppercase tracking-widest text-sm" href="#hero">Home</a>
+            <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="#skills-section">Skills</a>
+            <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="#blog-section">Blog</a>
+        </nav>
+        <div class="md:hidden">
+            <span class="material-symbols-outlined text-primary">menu</span>
+        </div>
     </div>
-    <a href="/blog/">Open blog index</a>
-  </body>
+</header>
+
+<main class="pt-16">
+    <section id="hero" class="relative min-h-[707px] flex flex-col justify-center px-6 overflow-hidden bg-surface">
+        <div class="absolute inset-0 halftone-bg pointer-events-none"></div>
+        
+        <div class="relative z-10 w-full flex justify-center md:justify-end md:pr-[55%]">
+            <div class="max-w-xl ink-bleed">
+                <h2 class="text-7xl font-black font-headline tracking-tighter leading-[0.9] mb-4 uppercase">
+                    Hello EveryOne <br/><span class="text-outline-variant italic text-neutral-400">Mình Là <br>
+                    Phan Việt Quan</span>
+                </h2>
+                <p class="text-lg text-on-surface-variant max-w-md leading-relaxed mb-8">
+                    Hiện tại mình là sinh viên năm 3 đại học Tôn Đức Thắng. Mình thật sự thấy rất vuiii khi có 1 ai đó xem được trang blog cá nhân của mình.
+                    Mình hi vọng trong tương lai mình có thể trở thành 1 developer thật sự thật sự giỏi !!! 
+                    Ai cũng phải bắt đầu từ đâu đó và mình tin mình cũng như vậy hihi.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#blog-section" class="bg-primary text-white px-8 py-4 font-label font-black uppercase tracking-widest hover:scale-95 transition-transform active:bg-neutral-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2 border-black">
+                        View Portfolio
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none w-full max-w-xl md:right-4">
+            <img alt="Ink Brush Goku" class="grayscale contrast-125 scale-[1.35] rotate-12" src="asset/goku.png"/>
+        </div>
+    </section>
+
+    <section id="skills-section" class="py-24 bg-surface-container-low px-6">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="flex items-center gap-4 mb-16">
+                <div class="w-12 h-12 rounded-full border-2 border-primary flex items-center justify-center relative bg-surface-container-lowest">
+                    <span class="material-symbols-outlined text-primary text-xl">bolt</span>
+                    <div class="absolute inset-0 rounded-full border-4 border-primary/10 animate-ping"></div>
+                </div>
+                <h3 class="text-4xl font-black font-headline tracking-tighter uppercase">TECH_SKILLS</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group relative bg-surface-container-lowest border-4 border-black p-6 transition-all hover:translate-x-2 hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <h4 class="text-2xl font-black font-headline tracking-tighter uppercase mb-2">// Frontend</h4>
+                    <p class="text-on-surface-variant mb-6 font-body">Sáng tạo giao diện người dùng trực quan và tối ưu hóa trải nghiệm (UX).</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">HTML5/CSS3</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">React.js</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Responsive UX</span>
+                    </div>
+                </div>
+
+                <div class="group relative bg-surface-container-lowest border-4 border-black p-6 transition-all hover:translate-x-2 hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <h4 class="text-2xl font-black font-headline tracking-tighter uppercase mb-2">// Backend</h4>
+                    <p class="text-on-surface-variant mb-6 font-body">Xây dựng nền tảng vững chắc và xử lý logic hệ thống phức tạp.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Java (OOP)</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Laravel (PHP)</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">FastAPI (Python)</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Django</span>
+                    </div>
+                </div>
+
+                <div class="group relative bg-surface-container-lowest border-4 border-black p-6 transition-all hover:translate-x-2 hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <h4 class="text-2xl font-black font-headline tracking-tighter uppercase mb-2">// UI/UX Design</h4>
+                    <p class="text-on-surface-variant mb-6 font-body">Nơi ý tưởng được hình thành trước khi viết những dòng code đầu tiên.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Figma</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Wireframe</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Design System</span>
+                    </div>
+                </div>
+
+                <div class="group relative bg-surface-container-lowest border-4 border-black p-6 transition-all hover:translate-x-2 hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <h4 class="text-2xl font-black font-headline tracking-tighter uppercase mb-2">// Infrastructure</h4>
+                    <p class="text-on-surface-variant mb-6 font-body">Đảm bảo hệ thống vận hành ổn định trên môi trường thực tế.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">AWS Cloud</span>
+                        <span class="px-4 py-1 border-2 border-black rounded-full text-xs font-bold uppercase bg-white">Docker</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog-section" class="py-24 bg-white px-6">
+        <div class="max-w-screen-xl mx-auto">
+            <h3 class="text-4xl font-black font-headline tracking-tighter uppercase mb-16 border-b-8 border-black inline-block pr-12 pb-2">BLOG & WORKS</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <a class="block border-4 border-black overflow-hidden group transition-transform hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" href="blog/blog1.html">
+                    <div class="aspect-[4/3] bg-black relative overflow-hidden">
+                        <img alt="Project Portfolio" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' fill='%23ffffff' fill-opacity='0.3' font-family='Space Grotesk' font-size='80' font-weight='900' text-anchor='middle' dominant-baseline='middle'%3EPORTFOLIO%3C/text%3E%3C/svg%3E"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    </div>
+                    <div class="p-6 bg-surface-container-low">
+                        <span class="font-label font-bold uppercase text-xs tracking-widest opacity-50 mb-3 block">01 / FEATURED PROJECTS</span>
+                        <h4 class="text-2xl font-black font-headline uppercase leading-tight mb-4">Portfolio</h4>
+                        <p class="font-body text-on-surface-variant leading-relaxed">Tổng hợp các sản phẩm từ Web App đến Big Data infrastructure tôi đã thực hiện.</p>
+                    </div>
+                </a>
+                
+                <a class="block border-4 border-black overflow-hidden group transition-transform hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" href="blog/blog2.html">
+                    <div class="aspect-[4/3] bg-black relative overflow-hidden">
+                        <img alt="Blog 2" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' fill='%23ffffff' fill-opacity='0.3' font-family='Space Grotesk' font-size='80' font-weight='900' text-anchor='middle' dominant-baseline='middle'%3EPROFILE%3C/text%3E%3C/svg%3E"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    </div>
+                    <div class="p-6 bg-surface-container-low">
+                        <span class="font-label font-bold uppercase text-xs tracking-widest opacity-50 mb-3 block">02 / PROFILE POST</span>
+                        <h4 class="text-2xl font-black font-headline uppercase leading-tight mb-4">Phan Việt Quan</h4>
+                        <p class="font-body text-on-surface-variant leading-relaxed">Backend Developer | Định hướng và tư duy phát triển bản thân.</p>
+                    </div>
+                </a>
+
+                <a class="block border-4 border-black overflow-hidden group transition-transform hover:-translate-y-1 hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" href="blog/blog3.html">
+                    <div class="aspect-[4/3] bg-black relative overflow-hidden">
+                        <img alt="Blog 3" class="absolute inset-0 w-full h-full object-cover grayscale opacity-80 group-hover:scale-105 transition-transform" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 900'%3E%3Crect width='1200' height='900' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' fill='%23ffffff' fill-opacity='0.3' font-family='Space Grotesk' font-size='80' font-weight='900' text-anchor='middle' dominant-baseline='middle'%3ETRAVEL%3C/text%3E%3C/svg%3E"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    </div>
+                    <div class="p-6 bg-surface-container-low">
+                        <span class="font-label font-bold uppercase text-xs tracking-widest opacity-50 mb-3 block">03 / ARTICLE</span>
+                        <h4 class="text-2xl font-black font-headline uppercase leading-tight mb-4">Mục Tiêu Xuyên Việt</h4>
+                        <p class="font-body text-on-surface-variant leading-relaxed">Tự do, trải nghiệm và những góc nhìn mới về cuộc sống Việt Nam.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="w-full py-12 bg-black text-white border-t-8 border-double border-white">
+    <div class="flex flex-col md:flex-row justify-between items-center px-10 gap-6 max-w-screen-2xl mx-auto">
+        <div class="flex flex-col items-center md:items-start gap-2">
+            <span class="text-lg font-black text-white tracking-tighter font-headline uppercase">Phan Việt Quan</span>
+        </div>
+        <div class="flex gap-8">
+            <a class="text-neutral-400 hover:text-white font-label font-bold text-xs uppercase tracking-widest" href="https://github.com/phanvietquan299">GitHub</a>
+            <a class="text-neutral-400 hover:text-white font-label font-bold text-xs uppercase tracking-widest" href="#">LinkedIn</a>
+        </div>
+    </div>
+</footer>
+
+</body>
 </html>
