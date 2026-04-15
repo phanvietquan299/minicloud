@@ -103,5 +103,5 @@ jobs:
 
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-            docker compose -f docker-compose.aws.yml --env-file .env pull
-            docker compose -f docker-compose.aws.yml --env-file .env up -d --remove-orphans
+            docker compose -f minicloud/docker-compose.aws.yml --env-file .env pull
+            docker compose -f minicloud/docker-compose.aws.yml --env-file .env up -d --remove-orphans
