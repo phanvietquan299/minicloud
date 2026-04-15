@@ -75,3 +75,38 @@ jobs:
         run: |
           echo "After images are pushed, deploy on EC2 with:"
           echo "docker compose -f minicloud/docker-compose.aws.yml --env-file .env up -d"
+
+  deploy-ec2:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+    needs: cd
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy stack on EC2 over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            # 1. Di chuyển vào thư mục dự án
+            cd $HOME/minicloud 
+            
+            # 2. Cập nhật file cấu hình (docker-compose.yml) mới nhất từ GitHub
+            git pull origin main
+            
+            # 3. Đăng nhập Docker Hub để có quyền kéo image (nếu là repo private)
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+            
+            # 4. Khai báo mã phiên bản để Docker biết cần lấy bản nào
+            export IMAGE_TAG=${{ github.sha }}
+            export DOCKERHUB_NAMESPACE=${{ secrets.DOCKERHUB_NAMESPACE }}
+            
+            # 5. Kéo các image mới vừa build về máy EC2
+            docker compose -f minicloud/docker-compose.yml pull
+            
+            # 6. Khởi động lại hệ thống với các image mới nhất
+            docker compose -f minicloud/docker-compose.yml up -d --remove-orphans
