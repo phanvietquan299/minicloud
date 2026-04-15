@@ -25,7 +25,16 @@
           <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#skills-section">Skills</a>
           <a class="text-neutral-500 hover:text-black transition-colors font-label font-bold uppercase tracking-widest text-sm" href="../index.html#blog-section">Blog</a>
         </nav>
-        <div class="md:hidden"><span class="material-symbols-outlined text-black">menu</span></div>
+        <div class="md:hidden relative">
+          <button class="flex h-10 w-10 items-center justify-center" type="button" aria-controls="mobile-nav" aria-expanded="false" data-nav-toggle>
+            <span class="material-symbols-outlined text-black" data-nav-icon>menu</span>
+          </button>
+          <div class="absolute right-0 top-full mt-3 hidden w-56 border-4 border-black bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]" data-mobile-nav>
+            <a class="block px-4 py-3 font-label font-bold uppercase tracking-widest text-sm text-black border-b-2 border-black" href="../index.html#hero">Home</a>
+            <a class="block px-4 py-3 font-label font-bold uppercase tracking-widest text-sm text-black border-b-2 border-black" href="../index.html#skills-section">Skills</a>
+            <a class="block px-4 py-3 font-label font-bold uppercase tracking-widest text-sm text-black" href="../index.html#blog-section">Blog</a>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -133,5 +142,32 @@
         </section>
       </article>
     </main>
-  </body>
+  <script>
+    const navToggle = document.querySelector('[data-nav-toggle]');
+    const mobileNav = document.querySelector('[data-mobile-nav]');
+    const navIcon = document.querySelector('[data-nav-icon]');
+
+    if (navToggle && mobileNav && navIcon) {
+      const setOpen = (isOpen) => {
+        mobileNav.classList.toggle('hidden', !isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        navIcon.textContent = isOpen ? 'close' : 'menu';
+      };
+
+      navToggle.addEventListener('click', () => {
+        setOpen(mobileNav.classList.contains('hidden'));
+      });
+
+      mobileNav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false));
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!navToggle.contains(event.target) && !mobileNav.contains(event.target)) {
+          setOpen(false);
+        }
+      });
+    }
+  </script>
+</body>
 </html>
