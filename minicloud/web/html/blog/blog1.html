@@ -37,9 +37,8 @@
             <div class="relative z-10 space-y-8">
               <span class="inline-block bg-black text-white px-3 py-1 text-xs font-label uppercase tracking-[0.25em]">Backend Developer Portfolio</span>
               <h2 class="text-5xl md:text-7xl font-black font-headline uppercase leading-[1] tracking-tighter max-w-2xl">
-                PHAN VIỆT QUAN<br />
-                <span class="bg-black text-white italic px-3">BACKEND DEVELOPER</span><br />
-                PORTFOLIO
+                <span class="bg-black text-white italic px-3">BACKEND DEVELOPER</span><br /> 
+                <br> PORTFOLIO
               </h2>
             </div>
               <p class="relative z-10 text-xl md:text-2xl leading-[1.8] max-w-xl border-l-4 border-black pl-5 text-justify mt-2">
@@ -59,8 +58,8 @@
           </div>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-0 border-t-[6px] border-black">
-          <div class="lg:col-span-8 p-8 md:p-12 bg-white space-y-14">
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-0 border-t-[6px] border-black h-full">
+          <div class="lg:col-span-8 p-8 md:p-12 bg-white space-y-14 h-full">
             <div>
               <h3 class="text-3xl md:text-4xl font-black font-headline uppercase tracking-tighter mb-5">1. GIỚI THIỆU CHUNG</h3>
               <p class="text-lg leading-[1.8] text-justify">
@@ -102,21 +101,41 @@
               </ul>
             </div>
           </div>
+          
+          <aside class="lg:col-span-4 bg-surface-container-low border-l-[6px] border-black flex flex-col h-full">
+              <div class="relative w-full border-b-[6px] border-black overflow-hidden bg-white">
+                <img 
+                    class="w-full h-auto object-cover grayscale contrast-125 opacity-90 transition-all duration-500 hover:scale-110" 
+                    alt="Dragon Ball illustration" 
+                    src="../asset/ball_dragon.png" 
+                />
+                <div class="absolute inset-0 halftone-bg opacity-10 pointer-events-none"></div>
+              </div>
 
-          <aside class="lg:col-span-4 bg-surface-container-low border-l-[6px] border-black p-8 md:p-10 space-y-6">
-            <div class="border-4 border-black p-4 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-              <h4 class="font-headline text-xl font-black uppercase mb-3">Front-End</h4>
-              <p class="text-sm leading-relaxed border-2 border-dashed border-black p-4 bg-neutral-50">
-                HTML, CSS, JavaScript, ReactJS, Figma, WordPress.
-              </p>
-            </div>
-            <div class="border-4 border-black p-4 bg-black text-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.25)]">
-              <h4 class="font-headline text-xl font-black uppercase mb-3">Back-End</h4>
-              <p class="text-sm leading-relaxed border-2 border-dashed border-white/40 p-4 bg-white/5">
-                PHP, Laravel, FastAPI, Django.
-              </p>
-            </div>
-          </aside>
+              <div class="p-8 md:p-10 space-y-6 flex-grow bg-white/50">
+                <div class="border-4 border-black p-4 bg-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:-translate-y-1 transition-transform">
+                  <h4 class="font-headline text-xl font-black uppercase mb-3">Front-End</h4>
+                  <p class="text-sm leading-relaxed border-2 border-dashed border-black p-4 bg-neutral-50">
+                    HTML, CSS, JavaScript, ReactJS, Figma, WordPress.
+                  </p>
+                </div>
+                <div class="border-4 border-black p-4 bg-black text-white shadow-[8px_8px_0px_0px_rgba(255,255,255,0.25)] hover:-translate-y-1 transition-transform">
+                  <h4 class="font-headline text-xl font-black uppercase mb-3">Back-End</h4>
+                  <p class="text-sm leading-relaxed border-2 border-dashed border-white/40 p-4 bg-white/5">
+                    PHP, Laravel, FastAPI, Django.
+                  </p>
+                </div>
+              </div>
+
+              <div class="relative w-full border-t-[6px] border-black overflow-hidden bg-white">
+                <img 
+                    class="w-full h-auto object-cover grayscale contrast-125 brightness-110 transition-all duration-700 hover:scale-110" 
+                    alt="Vegeto illustration" 
+                    src="../asset/vegeto.jpg" 
+                />
+                <div class="absolute inset-0 halftone-bg opacity-20 pointer-events-none"></div>
+              </div>
+            </aside>
         </section>
 
         <section class="px-8 md:px-12 py-10 border-t-[6px] border-black flex flex-wrap gap-4 bg-white">

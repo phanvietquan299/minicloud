@@ -44,6 +44,43 @@
         .manga-panel-clip {
             clip-path: polygon(0% 0%, 100% 2%, 98% 100%, 0% 98%);
         }
+        .hero-highlight {
+            display: block;
+            width: min(100%, 920px);
+            line-height: 0.95;
+            margin-top: 0.25rem;
+        }
+        .hero-svg {
+            width: 100%;
+            height: auto;
+            overflow: visible;
+            display: block;
+        }
+        .hero-svg-line {
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            paint-order: stroke fill;
+            will-change: stroke-dashoffset, opacity, transform, filter;
+        }
+        .hero-svg-line-top {
+            font-size: 82px;
+            stroke: #9ca3af;
+            stroke-width: 4;
+        }
+        .hero-svg-line-shadow {
+            font-size: 96px;
+            stroke: rgba(0, 0, 0, 0.18);
+            stroke-width: 10;
+        }
+        .hero-svg-line-main {
+            font-size: 96px;
+            stroke: #000000;
+            stroke-width: 4.5;
+        }
         body {
             min-height: max(884px, 100dvh);
         }
@@ -75,8 +112,14 @@
         <div class="relative z-10 w-full flex justify-center md:justify-end md:pr-[55%]">
             <div class="max-w-xl ink-bleed">
                 <h2 class="text-7xl font-black font-headline tracking-tighter leading-[0.9] mb-4 uppercase">
-                    Hello EveryOne <br/><span class="text-outline-variant italic text-neutral-400">Mình Là <br>
-                    Phan Việt Quan</span>
+                    Hello EveryOne <br/>
+                    <span class="hero-highlight" id="hero-highlight" aria-label="Mình Là Phan Việt Quan">
+                        <svg class="hero-svg" viewBox="0 0 980 220" role="img" aria-hidden="true">
+                            <text class="hero-svg-line hero-svg-line-top" id="hero-line-top" x="0" y="84">Mình Là</text>
+                            <text class="hero-svg-line hero-svg-line-shadow" id="hero-line-shadow" x="4" y="182">Phan Việt Quan</text>
+                            <text class="hero-svg-line hero-svg-line-main" id="hero-line-main" x="0" y="178">Phan Việt Quan</text>
+                        </svg>
+                    </span>
                 </h2>
                 <p class="text-lg text-on-surface-variant max-w-md leading-relaxed mb-8">
                     Hiện tại mình là sinh viên năm 3 đại học Tôn Đức Thắng. Mình thật sự thấy rất vuiii khi có 1 ai đó xem được trang blog cá nhân của mình.
@@ -195,6 +238,79 @@
     </section>
 </main>
 
+<script type="module">
+    import { animate } from 'https://cdn.jsdelivr.net/npm/animejs@4.0.0/+esm';
+
+    const heroHighlight = document.querySelector('#hero-highlight');
+
+    const prepareDrawable = (element) => {
+        const length = element.getComputedTextLength();
+        element.style.strokeDasharray = `${length}`;
+        element.style.strokeDashoffset = `${length}`;
+        return length;
+    };
+
+    const startHeroAnimation = () => {
+        if (!heroHighlight) {
+            return;
+        }
+
+        const lineTop = heroHighlight.querySelector('#hero-line-top');
+        const lineShadow = heroHighlight.querySelector('#hero-line-shadow');
+        const lineMain = heroHighlight.querySelector('#hero-line-main');
+
+        if (!lineTop || !lineShadow || !lineMain) {
+            return;
+        }
+
+        const topLength = prepareDrawable(lineTop);
+        const shadowLength = prepareDrawable(lineShadow);
+        const mainLength = prepareDrawable(lineMain);
+
+        animate(lineTop, {
+            strokeDashoffset: [topLength, 0],
+            opacity: [0, 1],
+            translateY: [16, 0],
+            duration: 1200,
+            delay: 0,
+            ease: 'inOutQuad',
+            loop: true,
+            alternate: true,
+            loopDelay: 200
+        });
+
+        animate(lineShadow, {
+            strokeDashoffset: [shadowLength, 0],
+            opacity: [0, 1],
+            translateY: [16, 0],
+            duration: 1200,
+            delay: 160,
+            ease: 'inOutQuad',
+            loop: true,
+            alternate: true,
+            loopDelay: 200
+        });
+
+        animate(lineMain, {
+            strokeDashoffset: [mainLength, 0],
+            opacity: [0, 1],
+            translateY: [16, 0],
+            duration: 1200,
+            delay: 280,
+            ease: 'inOutQuad',
+            loop: true,
+            alternate: true,
+            loopDelay: 200
+        });
+    };
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(startHeroAnimation);
+    } else {
+        window.addEventListener('load', startHeroAnimation, { once: true });
+    }
+</script>
+
 <footer class="w-full py-12 bg-black text-white border-t-8 border-double border-white">
     <div class="flex flex-col md:flex-row justify-between items-center px-10 gap-6 max-w-screen-2xl mx-auto">
         <div class="flex flex-col items-center md:items-start gap-2">
@@ -202,7 +318,7 @@
         </div>
         <div class="flex gap-8">
             <a class="text-neutral-400 hover:text-white font-label font-bold text-xs uppercase tracking-widest" href="https://github.com/phanvietquan299">GitHub</a>
-            <a class="text-neutral-400 hover:text-white font-label font-bold text-xs uppercase tracking-widest" href="#">LinkedIn</a>
+            <a class="text-neutral-400 hover:text-white font-label font-bold text-xs uppercase tracking-widest" href="https://www.linkedin.com/in/quan-phan-vi%E1%BB%87t-591343369/">LinkedIn</a>
         </div>
     </div>
 </footer>
