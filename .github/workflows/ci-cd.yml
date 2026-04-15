@@ -91,17 +91,17 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            script: |
             set -e
-            cd $HOME/minicloud/minicloud 
-            
-            [cite_start]git pull origin main [cite: 291]
-            
+            if [ ! -d "$HOME/minicloud/.git" ]; then
+              git clone "https://github.com/${{ github.repository }}.git" "$HOME/minicloud"
+            fi
+            cd "$HOME/minicloud"
+            git pull origin main
+
             echo "DOCKERHUB_NAMESPACE=${{ secrets.DOCKERHUB_NAMESPACE }}" > .env
             echo "IMAGE_TAG=${{ github.sha }}" >> .env
-            
+
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-            
-            [cite_start]docker compose pull [cite: 15, 299]
-            
-            [cite_start]docker compose up -d --remove-orphans [cite: 300]
+
+            docker compose -f docker-compose.aws.yml --env-file .env pull
+            docker compose -f docker-compose.aws.yml --env-file .env up -d --remove-orphans
