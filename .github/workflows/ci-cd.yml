@@ -91,22 +91,17 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
+            script: |
             set -e
-            # 1. Di chuyển vào thư mục dự án
-            cd $HOME/minicloud 
+            cd $HOME/minicloud/minicloud 
             
-            # 2. Cập nhật file cấu hình (docker-compose.yml) mới nhất từ GitHub
-            git pull origin main
+            [cite_start]git pull origin main [cite: 291]
             
-            # 3. Đăng nhập Docker Hub để có quyền kéo image (nếu là repo private)
+            echo "DOCKERHUB_NAMESPACE=${{ secrets.DOCKERHUB_NAMESPACE }}" > .env
+            echo "IMAGE_TAG=${{ github.sha }}" >> .env
+            
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
             
-            # 4. Khai báo mã phiên bản để Docker biết cần lấy bản nào
-            export IMAGE_TAG=${{ github.sha }}
-            export DOCKERHUB_NAMESPACE=${{ secrets.DOCKERHUB_NAMESPACE }}
+            [cite_start]docker compose pull [cite: 15, 299]
             
-            # 5. Kéo các image mới vừa build về máy EC2
-            docker compose -f minicloud/docker-compose.yml pull
-            
-            # 6. Khởi động lại hệ thống với các image mới nhất
-            docker compose -f minicloud/docker-compose.yml up -d --remove-orphans
+            [cite_start]docker compose up -d --remove-orphans [cite: 300]
