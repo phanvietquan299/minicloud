@@ -1,6 +1,7 @@
 server {
     listen 80;
     server_name _;
+    add_header X-Server "${SERVER_LABEL}" always;
 
     root /usr/share/nginx/html;
     index index.html;
