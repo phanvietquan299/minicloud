@@ -60,11 +60,11 @@ jobs:
       - name: Build and push web images
         run: |
           docker build --build-arg SERVER_LABEL=core -t "$DOCKERHUB_NAMESPACE/myminicloud-web:$IMAGE_TAG" ./minicloud/web
-          docker build --build-arg SERVER_LABEL=lb1 -t "$DOCKERHUB_NAMESPACE/myminicloud-web-lb1:$IMAGE_TAG" ./minicloud/web
-          docker build --build-arg SERVER_LABEL=lb2 -t "$DOCKERHUB_NAMESPACE/myminicloud-web-lb2:$IMAGE_TAG" ./minicloud/web
+          docker build --build-arg SERVER_LABEL=web1 -t "$DOCKERHUB_NAMESPACE/myminicloud-web-web1:$IMAGE_TAG" ./minicloud/web
+          docker build --build-arg SERVER_LABEL=web2 -t "$DOCKERHUB_NAMESPACE/myminicloud-web-web2:$IMAGE_TAG" ./minicloud/web
           docker push "$DOCKERHUB_NAMESPACE/myminicloud-web:$IMAGE_TAG"
-          docker push "$DOCKERHUB_NAMESPACE/myminicloud-web-lb1:$IMAGE_TAG"
-          docker push "$DOCKERHUB_NAMESPACE/myminicloud-web-lb2:$IMAGE_TAG"
+          docker push "$DOCKERHUB_NAMESPACE/myminicloud-web-web1:$IMAGE_TAG"
+          docker push "$DOCKERHUB_NAMESPACE/myminicloud-web-web2:$IMAGE_TAG"
 
       - name: Build and push backend image
         run: |
