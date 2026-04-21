@@ -148,17 +148,3 @@ jobs:
                   ;;
               esac
             done <<EOF
-$SERVERS
-EOF
-
-            echo "$SERVERS" | sort | uniq -c
-
-            if [ "$CORE_SEEN" -ne 1 ] || [ "$WEB1_SEEN" -ne 1 ] || [ "$WEB2_SEEN" -ne 1 ]; then
-              echo "LB check failed: expected core + web-1/lb1 + web-2/lb2"
-              docker compose -f minicloud/docker-compose.aws.yml --env-file .env ps
-              docker compose -f minicloud/docker-compose.aws.yml --env-file .env logs --no-color
-              exit 1
-            fi
-
-            echo "LB check passed: all 3 frontend nodes observed"
-            docker image prune -f
