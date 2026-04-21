@@ -105,4 +105,60 @@ jobs:
 
             docker compose -f minicloud/docker-compose.aws.yml --env-file .env pull
             docker compose -f minicloud/docker-compose.aws.yml --env-file .env up -d --remove-orphans
+
+            for i in $(seq 1 30); do
+              if curl -fsS http://localhost:80/ >/dev/null && \
+                 curl -fsS http://localhost:8085/hello >/dev/null && \
+                 curl -fsS http://localhost/api/student >/dev/null && \
+                 curl -fsS http://localhost/api/hello >/dev/null; then
+                echo "EC2 smoke tests passed"
+                break
+              fi
+              sleep 5
+            done
+
+            if ! curl -fsS http://localhost:80/ >/dev/null || \
+               ! curl -fsS http://localhost:8085/hello >/dev/null || \
+               ! curl -fsS http://localhost/api/student >/dev/null || \
+               ! curl -fsS http://localhost/api/hello >/dev/null; then
+              echo "EC2 smoke tests failed"
+              docker compose -f minicloud/docker-compose.aws.yml --env-file .env ps
+              docker compose -f minicloud/docker-compose.aws.yml --env-file .env logs --no-color
+              exit 1
+            fi
+
+            echo "Checking frontend LB distribution on EC2..."
+            SERVERS=$(for i in $(seq 1 90); do
+              curl -fsSI http://localhost/ | awk 'BEGIN{IGNORECASE=1} /^X-Server:/ {print tolower($2)}' | tr -d '\r'
+            done)
+
+            CORE_SEEN=0
+            WEB1_SEEN=0
+            WEB2_SEEN=0
+            while IFS= read -r S; do
+              case "$S" in
+                core|web)
+                  CORE_SEEN=1
+                  ;;
+                web-1|lb1)
+                  WEB1_SEEN=1
+                  ;;
+                web-2|lb2)
+                  WEB2_SEEN=1
+                  ;;
+              esac
+            done <<EOF
+$SERVERS
+EOF
+
+            echo "$SERVERS" | sort | uniq -c
+
+            if [ "$CORE_SEEN" -ne 1 ] || [ "$WEB1_SEEN" -ne 1 ] || [ "$WEB2_SEEN" -ne 1 ]; then
+              echo "LB check failed: expected core + web-1/lb1 + web-2/lb2"
+              docker compose -f minicloud/docker-compose.aws.yml --env-file .env ps
+              docker compose -f minicloud/docker-compose.aws.yml --env-file .env logs --no-color
+              exit 1
+            fi
+
+            echo "LB check passed: all 3 frontend nodes observed"
             docker image prune -f
