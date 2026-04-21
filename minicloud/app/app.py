@@ -5,7 +5,7 @@ import time
 import jwt
 import mysql.connector
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, render_template_string, request
 from jwt.algorithms import RSAAlgorithm
 
 
@@ -108,6 +108,141 @@ def load_students_file():
         return json.load(file_handle)
 
 
+def render_students_page(title: str, students):
+        template = """
+        <!doctype html>
+        <html lang="vi">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>{{ title }}</title>
+            <style>
+                :root {
+                    color-scheme: light;
+                    --bg: #f4f7fb;
+                    --card: #ffffff;
+                    --text: #1f2937;
+                    --muted: #6b7280;
+                    --accent: #0f766e;
+                    --border: #dbe3ee;
+                }
+                body {
+                    margin: 0;
+                    font-family: Arial, Helvetica, sans-serif;
+                    background: linear-gradient(135deg, #eef4ff 0%, #f8fafc 55%, #ecfeff 100%);
+                    color: var(--text);
+                }
+                .container {
+                    max-width: 1100px;
+                    margin: 40px auto;
+                    padding: 0 20px;
+                }
+                .hero {
+                    background: var(--card);
+                    border: 1px solid var(--border);
+                    border-radius: 20px;
+                    padding: 24px;
+                    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+                    margin-bottom: 20px;
+                }
+                .hero h1 {
+                    margin: 0 0 8px;
+                    font-size: 2rem;
+                }
+                .hero p {
+                    margin: 0;
+                    color: var(--muted);
+                }
+                .table-wrap {
+                    overflow-x: auto;
+                    background: var(--card);
+                    border: 1px solid var(--border);
+                    border-radius: 20px;
+                    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    text-align: left;
+                    padding: 14px 16px;
+                    border-bottom: 1px solid var(--border);
+                    vertical-align: top;
+                }
+                th {
+                    background: #f8fafc;
+                    color: var(--accent);
+                    font-size: 0.95rem;
+                }
+                tr:hover td {
+                    background: #f9fbff;
+                }
+                .empty {
+                    padding: 24px;
+                    color: var(--muted);
+                }
+                .badge {
+                    display: inline-block;
+                    padding: 4px 10px;
+                    border-radius: 999px;
+                    background: #ecfeff;
+                    color: #0f766e;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="hero">
+                    <span class="badge">Flask Backend</span>
+                    <h1>{{ title }}</h1>
+                    <p>{{ subtitle }}</p>
+                </div>
+                <div class="table-wrap">
+                    {% if students %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student ID</th>
+                                <th>Fullname</th>
+                                <th>DOB</th>
+                                <th>Major</th>
+                                {% if show_gpa %}<th>GPA</th>{% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student.get('id', '') }}</td>
+                                <td>{{ student.get('student_id', '') }}</td>
+                                <td>{{ student.get('name', student.get('fullname', '')) }}</td>
+                                <td>{{ student.get('dob', '') }}</td>
+                                <td>{{ student.get('major', '') }}</td>
+                                {% if show_gpa %}<td>{{ student.get('gpa', '') }}</td>{% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="empty">No student data available.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        return render_template_string(
+                template,
+                title=title,
+                subtitle="Dữ liệu được lấy từ file JSON và hiển thị dưới dạng bảng HTML thay vì JSON thô.",
+                students=students,
+                show_gpa=any("gpa" in student for student in students),
+        )
+
+
 def fetch_students_from_db():
     connection = mysql.connector.connect(
         host=DB_HOST,
@@ -140,7 +275,7 @@ def hello():
 @app.get("/student/")
 def student():
     try:
-        return jsonify(load_students_file())
+        return render_students_page("Student List", load_students_file())
     except Exception as exc:
         return jsonify(error=str(exc)), 500
 
@@ -148,7 +283,7 @@ def student():
 @app.get("/students-db")
 def students_db():
     try:
-        return jsonify(fetch_students_from_db())
+        return render_students_page("Student Database", fetch_students_from_db())
     except Exception as exc:
         return jsonify(error=str(exc)), 500
 

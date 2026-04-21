@@ -101,6 +101,15 @@ services:
       retries: 5
       start_period: 20s
 
+  db-admin-interface:
+    image: adminer:latest
+    container_name: minicloud-db-admin
+    ports:
+      - "8086:8080"
+    networks:
+      - cloud-net
+    restart: unless-stopped
+
   authentication-identity-server:
     image: quay.io/keycloak/keycloak:25.0.5
     container_name: minicloud-auth
