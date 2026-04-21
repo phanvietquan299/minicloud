@@ -9,13 +9,22 @@ from flask import Flask, jsonify, request
 from jwt.algorithms import RSAAlgorithm
 
 
-ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/auth/realms/realm_sv001")
+ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/realms/realm_sv001")
 AUDIENCE = os.getenv("OIDC_AUDIENCE", "myapp")
 JWKS_URL = f"{ISSUER}/protocol/openid-connect/certs"
-MASTER_ISSUER = os.getenv("OIDC_MASTER_ISSUER", "http://authentication-identity-server:8080/auth/realms/master")
-LOCALHOST_ISSUER = os.getenv("OIDC_LOCALHOST_ISSUER", "http://localhost:8081/auth/realms/master")
-LOCALHOST_REALM_ISSUER = os.getenv("OIDC_LOCALHOST_REALM_ISSUER", "http://localhost:8081/auth/realms/realm_sv001")
-ALLOWED_ISSUERS = {ISSUER, MASTER_ISSUER, LOCALHOST_ISSUER, LOCALHOST_REALM_ISSUER}
+MASTER_ISSUER = os.getenv("OIDC_MASTER_ISSUER", "http://authentication-identity-server:8080/realms/master")
+LOCALHOST_ISSUER = os.getenv("OIDC_LOCALHOST_ISSUER", "http://localhost:8081/realms/master")
+LOCALHOST_REALM_ISSUER = os.getenv("OIDC_LOCALHOST_REALM_ISSUER", "http://localhost:8081/realms/realm_sv001")
+ALLOWED_ISSUERS = {
+    ISSUER,
+    MASTER_ISSUER,
+    LOCALHOST_ISSUER,
+    LOCALHOST_REALM_ISSUER,
+    "http://authentication-identity-server:8080/auth/realms/master",
+    "http://authentication-identity-server:8080/auth/realms/realm_sv001",
+    "http://localhost:8081/auth/realms/master",
+    "http://localhost:8081/auth/realms/realm_sv001",
+}
 DB_HOST = os.getenv("DB_HOST", "relational-database-server")
 DB_PORT = int(os.getenv("DB_PORT", "3306"))
 DB_USER = os.getenv("DB_USER", "root")

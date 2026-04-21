@@ -5,7 +5,7 @@ import urllib.parse
 import urllib.request
 
 
-BASE_URL = "http://authentication-identity-server:8080/auth"
+BASE_URL = "http://authentication-identity-server:8080"
 REALM = "realm_sv001"
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin"
@@ -96,8 +96,19 @@ def ensure_user(token, username, password):
     )
 
 
+def set_realm_ssl_required(token, realm, ssl_required="none"):
+    realm_url = f"{BASE_URL}/admin/realms/{realm}"
+    current = request_json(realm_url, token=token)
+    if not current:
+        return
+    current["sslRequired"] = ssl_required
+    request_json(realm_url, method="PUT", token=token, body=current)
+
+
 def main():
     token = wait_for_keycloak()
+    set_realm_ssl_required(token, "master", "none")
+    set_realm_ssl_required(token, REALM, "none")
     ensure_user(token, "sv01", "sv01")
     ensure_user(token, "sv02", "sv02")
     print("Keycloak users initialized")
