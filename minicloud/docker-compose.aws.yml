@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
 
   web-frontend-server-1:
-    image: ${DOCKERHUB_NAMESPACE}/myminicloud-web-lb1:${IMAGE_TAG}
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-web-web1:${IMAGE_TAG}
     container_name: minicloud-web-1
     ports: 
       - "8082:80"
@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   web-frontend-server-2:
-    image: ${DOCKERHUB_NAMESPACE}/myminicloud-web-lb2:${IMAGE_TAG}
+    image: ${DOCKERHUB_NAMESPACE}/myminicloud-web-web2:${IMAGE_TAG}
     container_name: minicloud-web-2
     ports: 
       - "8083:80"

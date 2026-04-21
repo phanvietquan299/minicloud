@@ -22,8 +22,8 @@ services:
     build:
       context: ./web
       args:
-        SERVER_LABEL: web-1
-    image: myminicloud/web-frontend:lb1
+        SERVER_LABEL: web1
+    image: myminicloud/web-frontend:web1
     container_name: minicloud-web-1
     ports:
       - "8082:80"
@@ -41,8 +41,8 @@ services:
     build:
       context: ./web
       args:
-        SERVER_LABEL: web-2
-    image: myminicloud/web-frontend:lb2
+        SERVER_LABEL: web2
+    image: myminicloud/web-frontend:web2
     container_name: minicloud-web-2
     ports:
       - "8083:80"
