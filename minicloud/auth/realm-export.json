@@ -23,6 +23,7 @@
     {
       "username": "sv01",
       "enabled": true,
+      "email": "sv01@example.com",
       "emailVerified": true,
       "requiredActions": [],
       "firstName": "Student",
@@ -38,6 +39,7 @@
     {
       "username": "sv02",
       "enabled": true,
+      "email": "sv02@example.com",
       "emailVerified": true,
       "requiredActions": [],
       "firstName": "Student",

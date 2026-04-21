@@ -8,8 +8,6 @@ services:
     container_name: minicloud-web
     ports:
       - "8080:80"
-    volumes:
-      - ./web/html:/usr/share/nginx/html:ro
     networks:
       - cloud-net
     restart: unless-stopped
@@ -29,8 +27,6 @@ services:
     container_name: minicloud-web-1
     ports:
       - "8082:80"
-    volumes:
-      - ./web/html:/usr/share/nginx/html:ro
     networks:
       - cloud-net
     restart: unless-stopped
@@ -50,8 +46,6 @@ services:
     container_name: minicloud-web-2
     ports:
       - "8083:80"
-    volumes:
-      - ./web/html:/usr/share/nginx/html:ro
     networks:
       - cloud-net
     restart: unless-stopped
@@ -68,7 +62,7 @@ services:
     image: myminicloud/backend:dev
     container_name: minicloud-app
     environment:
-      OIDC_ISSUER: http://authentication-identity-server:8080/auth/realms/realm_sv001
+      OIDC_ISSUER: http://authentication-identity-server:8080/realms/realm_sv001
       OIDC_AUDIENCE: flask-app
       DB_HOST: relational-database-server
       DB_PORT: "3306"
@@ -117,7 +111,6 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HTTP_ENABLED: "true"
-      KC_HTTP_RELATIVE_PATH: /auth
       KC_HOSTNAME_STRICT: "false"
       KC_PROXY_HEADERS: xforwarded
     ports:
@@ -174,6 +167,7 @@ services:
 
   internal-dns-server:
     image: internetsystemsconsortium/bind9:9.18
+    platform: linux/amd64
     container_name: minicloud-dns
     volumes:
       - ./dns/named.conf:/etc/bind/named.conf:ro

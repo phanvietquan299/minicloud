@@ -56,7 +56,7 @@ def wait_for_keycloak():
     raise RuntimeError("Keycloak did not become ready in time")
 
 
-def ensure_user(token, username, password):
+def ensure_user(token, username, password, first_name, last_name, email):
     users_url = f"{BASE_URL}/admin/realms/{REALM}/users"
     existing = request_json(f"{users_url}?username={urllib.parse.quote(username)}", token=token)
     if existing:
@@ -69,8 +69,11 @@ def ensure_user(token, username, password):
             body={
                 "username": username,
                 "enabled": True,
+                "email": email,
                 "emailVerified": True,
                 "requiredActions": [],
+                "firstName": first_name,
+                "lastName": last_name,
             },
         )
         existing = request_json(f"{users_url}?username={urllib.parse.quote(username)}", token=token)
@@ -84,8 +87,11 @@ def ensure_user(token, username, password):
             "id": user_id,
             "username": username,
             "enabled": True,
+            "email": email,
             "emailVerified": True,
             "requiredActions": [],
+            "firstName": first_name,
+            "lastName": last_name,
         },
     )
     request_json(
@@ -109,8 +115,8 @@ def main():
     token = wait_for_keycloak()
     set_realm_ssl_required(token, "master", "none")
     set_realm_ssl_required(token, REALM, "none")
-    ensure_user(token, "sv01", "sv01")
-    ensure_user(token, "sv02", "sv02")
+    ensure_user(token, "sv01", "sv01", "Student", "One", "sv01@example.com")
+    ensure_user(token, "sv02", "sv02", "Student", "Two", "sv02@example.com")
     print("Keycloak users initialized")
 
 

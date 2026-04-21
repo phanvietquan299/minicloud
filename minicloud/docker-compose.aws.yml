@@ -30,8 +30,10 @@ services:
     image: ${DOCKERHUB_NAMESPACE}/myminicloud-backend:${IMAGE_TAG}
     container_name: minicloud-app
     environment:
-      OIDC_ISSUER: http://authentication-identity-server:8080/auth/realms/realm_sv001
+      OIDC_ISSUER: http://authentication-identity-server:8080/realms/realm_sv001
       OIDC_AUDIENCE: flask-app
+      OIDC_REDIRECT_URI: http://${PUBLIC_HOST:-phanvietquan299.id.vn}:8085/secure
+      OIDC_LOCALHOST_REALM_ISSUER: http://${PUBLIC_HOST:-phanvietquan299.id.vn}:8081/realms/realm_sv001
       DB_HOST: relational-database-server
       DB_PORT: "3306"
       DB_USER: root
@@ -68,7 +70,6 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HTTP_ENABLED: "true"
-      KC_HTTP_RELATIVE_PATH: /auth
       KC_HOSTNAME_STRICT: "false"
       KC_PROXY_HEADERS: xforwarded
     ports:

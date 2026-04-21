@@ -12,6 +12,8 @@ from jwt.algorithms import RSAAlgorithm
 ISSUER = os.getenv("OIDC_ISSUER", "http://authentication-identity-server:8080/realms/realm_sv001")
 AUDIENCE = os.getenv("OIDC_AUDIENCE", "myapp")
 JWKS_URL = f"{ISSUER}/protocol/openid-connect/certs"
+OIDC_CLIENT_ID = os.getenv("OIDC_CLIENT_ID", "flask-app")
+OIDC_REDIRECT_URI = os.getenv("OIDC_REDIRECT_URI", "http://localhost:8085/secure")
 MASTER_ISSUER = os.getenv("OIDC_MASTER_ISSUER", "http://authentication-identity-server:8080/realms/master")
 LOCALHOST_ISSUER = os.getenv("OIDC_LOCALHOST_ISSUER", "http://localhost:8081/realms/master")
 LOCALHOST_REALM_ISSUER = os.getenv("OIDC_LOCALHOST_REALM_ISSUER", "http://localhost:8081/realms/realm_sv001")
@@ -80,6 +82,27 @@ def verify_token(token: str):
     )
 
 
+def exchange_authorization_code(code: str):
+    # Reach token endpoint through container DNS so the backend can resolve it.
+    internal_issuer = ISSUER.replace(
+        "http://localhost:8081",
+        "http://authentication-identity-server:8080",
+    )
+    token_url = f"{internal_issuer}/protocol/openid-connect/token"
+    response = requests.post(
+        token_url,
+        data={
+            "grant_type": "authorization_code",
+            "client_id": OIDC_CLIENT_ID,
+            "code": code,
+            "redirect_uri": OIDC_REDIRECT_URI,
+        },
+        timeout=5,
+    )
+    response.raise_for_status()
+    return response.json()
+
+
 def load_students_file():
     with open(STUDENTS_FILE, encoding="utf-8") as file_handle:
         return json.load(file_handle)
@@ -132,9 +155,39 @@ def students_db():
 
 @app.get("/secure")
 def secure():
+    # Browser flow: Keycloak redirects back with ?code=...; exchange it for a token.
+    code = request.args.get("code", "").strip()
+    if code:
+        try:
+            token_response = exchange_authorization_code(code)
+            access_token = token_response.get("access_token", "")
+            if not access_token:
+                return jsonify(error="No access token in token response"), 401
+            payload = verify_token(access_token)
+            return jsonify(
+                message="Secure resource OK",
+                preferred_username=payload.get("preferred_username"),
+                sub=payload.get("sub"),
+                flow="authorization_code",
+            )
+        except Exception as exc:
+            return jsonify(error=str(exc)), 401
+
     auth_header = request.headers.get("Authorization", "")
     if not auth_header.startswith("Bearer "):
-        return jsonify(error="Missing Bearer token"), 401
+        # If opened directly in browser, start OIDC login instead of returning 401.
+        authorize_url = (
+            f"{LOCALHOST_REALM_ISSUER}/protocol/openid-connect/auth"
+            f"?client_id={OIDC_CLIENT_ID}"
+            f"&redirect_uri={OIDC_REDIRECT_URI}"
+            "&response_type=code"
+            "&scope=openid"
+        )
+        return jsonify(
+            error="Missing Bearer token",
+            hint="Open the authorize URL to sign in with Keycloak browser flow",
+            authorize_url=authorize_url,
+        ), 401
 
     token = auth_header.split(" ", 1)[1].strip()
     try:
